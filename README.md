@@ -1,4 +1,4 @@
-# jogo-de-palavras-# 🔤 Caça-Palavras – 50 Níveis
+# 🔤 Caça-Palavras – 50 Níveis
 
 Jogo de caça-palavras (word search) completo para computador.
 
