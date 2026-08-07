@@ -553,3 +553,20 @@ function resumeAllAudio() {
     else startMusic();
   }
 }
+function loadLevel(level) {
+  currentLevel = level;
+  foundWords.clear();
+  const puzzle = generatePuzzle(level);
+  grid = puzzle.grid;
+  words = puzzle.words;
+  renderGrid();
+  renderWordList();
+  updateUI();
+  messageEl.textContent = `Nível ${level} – Jwenn ${words.length} mo`;
+  overlay.classList.add('hidden');
+  document.querySelectorAll('.cell.found').forEach(c => c.classList.remove('found'));
+
+  // NOUVO
+  applyTheme(level);
+  startMusic();
+}
