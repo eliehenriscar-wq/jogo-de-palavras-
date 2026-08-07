@@ -385,3 +385,32 @@ html, body {
     flex-wrap: wrap;
   }
 }
+#grid-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: #0f172a;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: auto;
+  transition: background-image 0.8s ease;
+  position: relative;
+}
+
+#grid-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55); /* fè griy la pi fasil pou li */
+  pointer-events: none;
+  z-index: 0;
+}
+
+#grid {
+  position: relative;
+  z-index: 1;
+  /* ... rès kòd ou deja genyen an rete menm */
+}
