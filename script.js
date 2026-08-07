@@ -485,3 +485,71 @@ try {
     box.innerHTML += '<br><br><strong>Detalhe:</strong> ' + (err.message || String(err));
   }
 }
+// ---------- BACKGROUNDS & MUSIC ----------
+const THEMES = [
+  { name: 'lanmè',    min: 1,  max: 10, bg: 'sea.jpg',        ambient: 'sea-ambient.mp3' },
+  { name: 'peysaj',   min: 11, max: 20, bg: 'landscape.jpg',  ambient: 'nature-ambient.mp3' },
+  { name: 'cite',     min: 21, max: 30, bg: 'city.jpg',       ambient: 'city-ambient.mp3' },
+  { name: 'syèl',     min: 31, max: 40, bg: 'sky.jpg',        ambient: 'sky-ambient.mp3' },
+  { name: 'bulb',     min: 41, max: 50, bg: 'bulb.jpg',       ambient: 'soft-ambient.mp3' }
+];
+
+let ambientAudio = null;
+let musicAudio = null;
+let currentTheme = null;
+
+function getThemeForLevel(level) {
+  return THEMES.find(t => level >= t.min && level <= t.max) || THEMES[0];
+}
+
+function applyTheme(level) {
+  const theme = getThemeForLevel(level);
+  currentTheme = theme;
+
+  // Chanje fon ekan
+  const container = document.getElementById('grid-container');
+  container.style.backgroundImage = `url('${theme.bg}')`;
+
+  // Ambient sound
+  if (ambientAudio) {
+    ambientAudio.pause();
+    ambientAudio = null;
+  }
+
+  if (soundEnabled) {
+    ambientAudio = new Audio(theme.ambient);
+    ambientAudio.loop = true;
+    ambientAudio.volume = 0.25;
+    ambientAudio.play().catch(() => {});
+  }
+}
+
+function startMusic() {
+  if (musicAudio) return;
+
+  musicAudio = new Audio('music.mp3');
+  musicAudio.loop = true;
+  musicAudio.volume = 0.35;
+
+  if (soundEnabled) {
+    musicAudio.play().catch(() => {});
+  }
+}
+
+function stopAllAudio() {
+  if (ambientAudio) {
+    ambientAudio.pause();
+    ambientAudio = null;
+  }
+  if (musicAudio) {
+    musicAudio.pause();
+  }
+}
+
+function resumeAllAudio() {
+  if (soundEnabled) {
+    if (ambientAudio) ambientAudio.play().catch(() => {});
+    if (musicAudio) musicAudio.play().catch(() => {});
+    else startMusic();
+  }
+}
