@@ -570,3 +570,16 @@ function loadLevel(level) {
   applyTheme(level);
   startMusic();
 }
+btnSound.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  btnSound.textContent = soundEnabled ? '🔊' : '🔇';
+  btnSound.classList.toggle('muted', !soundEnabled);
+  soundLabel.textContent = soundEnabled ? 'Son aktif' : 'Son fèmen';
+
+  if (soundEnabled) {
+    resumeAllAudio();
+    playSelect();
+  } else {
+    stopAllAudio();
+  }
+});
